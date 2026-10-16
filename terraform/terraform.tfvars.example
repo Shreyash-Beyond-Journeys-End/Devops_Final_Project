@@ -1,0 +1,7 @@
+# copy this file to terraform.tfvars and change the ip
+# (terraform.tfvars is in .gitignore)
+region             = "ap-south-1"
+cluster_name       = "placetrack"
+kubernetes_version = "1.35"
+node_instance_type = "t3.small"
+api_access_cidrs   = ["203.0.113.10/32"] # your public ip, find it with: curl ifconfig.me
