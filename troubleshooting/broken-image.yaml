@@ -1,0 +1,19 @@
+# broken on purpose: this image tag does not exist in ghcr
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tb-image
+  namespace: placetrack
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tb-image
+  template:
+    metadata:
+      labels:
+        app: tb-image
+    spec:
+      containers:
+        - name: app
+          image: ghcr.io/shreyash-beyond-journeys-end/placetrack-backend:does-not-exist
