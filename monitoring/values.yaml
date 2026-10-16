@@ -1,0 +1,28 @@
+# values for the kube-prometheus-stack helm chart
+
+prometheus:
+  prometheusSpec:
+    # pick up ServiceMonitors from every namespace and chart (not only this one)
+    serviceMonitorSelectorNilUsesHelmValues: false
+    # small laptop cluster, so keep only 6 hours of data
+    retention: 6h
+    resources:
+      requests:
+        cpu: 100m
+        memory: 400Mi
+
+grafana:
+  # admin login comes from a secret made by install.sh (not saved in git)
+  admin:
+    existingSecret: grafana-admin
+    userKey: admin-user
+    passwordKey: admin-password
+  # load dashboards from configmaps that have this label
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+
+# not using alerts for this project
+alertmanager:
+  enabled: false
