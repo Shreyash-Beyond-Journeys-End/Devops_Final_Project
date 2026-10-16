@@ -46,7 +46,7 @@ jobs:
           npm ci
           npm run build
 
-  # 3. build docker images and push them to ghcr
+  # 3. build docker images, scan them with trivy, push to ghcr
   image:
     needs: [test, frontend]
     runs-on: ubuntu-latest
@@ -61,6 +61,17 @@ jobs:
 
       - name: Build image
         run: docker build -t $REGISTRY/placetrack-${{ matrix.service }}:${{ github.sha }} ${{ matrix.service }}
+
+      # fails the job if there is a HIGH or CRITICAL CVE that has a fix
+      # (pinned to a commit because trivy-action tags were hijacked in 2026)
+      - name: Trivy scan
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          image-ref: ${{ env.REGISTRY }}/placetrack-${{ matrix.service }}:${{ github.sha }}
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: "1"
+          format: table
 
       # only push on main, pull requests just build and scan
       - name: Log in to GHCR
