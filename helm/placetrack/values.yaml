@@ -1,0 +1,44 @@
+image:
+  registry: ghcr.io/shreyash-beyond-journeys-end
+  # the commit SHA from github actions, set with --set image.tag=<sha>
+  tag: ""
+  pullPolicy: IfNotPresent
+
+backend:
+  replicas: 2
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
+
+frontend:
+  replicas: 2
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 128Mi
+
+postgres:
+  image: postgres:16-alpine
+  storage: 1Gi
+
+ingress:
+  className: nginx
+  host: placetrack.local
+
+# autoscaling for the backend (needs metrics-server)
+hpa:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 4
+  cpuPercent: 60
+
+# turn this on after prometheus is installed (see monitoring/install.sh)
+serviceMonitor:
+  enabled: false

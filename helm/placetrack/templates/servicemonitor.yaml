@@ -1,0 +1,16 @@
+# tells prometheus to scrape /metrics from the backend pods
+{{- if .Values.serviceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ .Release.Name }}-backend
+spec:
+  selector:
+    matchLabels:
+      app: placetrack
+      component: backend
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 15s
+{{- end }}

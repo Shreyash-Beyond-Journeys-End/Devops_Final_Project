@@ -1,0 +1,5 @@
+# namespace for the app, apply this before installing the helm chart
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: placetrack
