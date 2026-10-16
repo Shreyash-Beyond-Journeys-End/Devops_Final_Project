@@ -81,3 +81,27 @@ jobs:
       - name: Push image
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: docker push $REGISTRY/placetrack-${{ matrix.service }}:${{ github.sha }}
+
+  # 4. deploy to minikube on my laptop (self-hosted runner)
+  # only runs when the repo variable DEPLOY_ENABLED is true, because my laptop is not always on
+  deploy:
+    needs: image
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.DEPLOY_ENABLED == 'true'
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+
+      # kubectl and helm are installed in ~/.local/bin on my laptop
+      - name: Add tools to PATH
+        run: echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Helm upgrade with the new image tag
+        run: ./scripts/deploy.sh ${{ github.sha }}
+
+      - name: Wait for the rollout
+        run: |
+          kubectl -n placetrack rollout status deploy/placetrack-backend --timeout=180s
+          kubectl -n placetrack rollout status deploy/placetrack-frontend --timeout=180s
+
+      - name: Show pods
+        run: kubectl -n placetrack get pods
