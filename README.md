@@ -1,4 +1,4 @@
-# PlaceTrack - DevOps Final Project
+# ApplyLog - DevOps Final Project
 
 **Name:** Shreyash Kawde
 
@@ -6,9 +6,9 @@
 
 **GitHub repo:** https://github.com/Shreyash-Beyond-Journeys-End/Devops_Final_Project
 
-## What is PlaceTrack?
+## What is ApplyLog?
 
-PlaceTrack is a small web app to keep track of job and internship applications.
+ApplyLog is a small web app to keep track of job and internship applications.
 For each application you save the company, the role, the date and some notes, and you set the status:
 **applied**, **interview**, **offer** or **rejected**.
 At the top it shows how many applications are in each status, and you can filter the list by status.
