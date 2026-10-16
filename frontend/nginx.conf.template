@@ -1,0 +1,20 @@
+server {
+    listen 8080;
+    root /usr/share/nginx/html;
+
+    # look up the backend name on every request (not only at startup),
+    # so nginx still starts if the backend is not up yet
+    resolver ${NGINX_LOCAL_RESOLVERS} valid=10s;
+    set $backend ${BACKEND_URL};
+
+    # api calls go to the fastapi backend
+    location /api/ {
+        proxy_pass $backend;
+        proxy_set_header Host $host;
+    }
+
+    # everything else is the react app
+    location / {
+        try_files $uri /index.html;
+    }
+}
