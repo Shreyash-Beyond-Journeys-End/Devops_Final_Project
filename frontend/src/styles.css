@@ -220,3 +220,10 @@ th {
     display: none;
   }
 }
+
+footer {
+  margin-top: 32px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}

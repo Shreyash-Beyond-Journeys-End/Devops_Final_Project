@@ -173,6 +173,8 @@ function App() {
           </form>
         </div>
       )}
+
+      <footer>PlaceTrack - DevOps final project by Shreyash Kawde</footer>
     </div>
   );
 }
