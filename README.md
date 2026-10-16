@@ -6,6 +6,8 @@
 
 **GitHub repo:** https://github.com/Shreyash-Beyond-Journeys-End/Devops_Final_Project
 
+**Presentation video:** https://drive.google.com/file/d/1wpf-J_jXGa5-PTOo9jHA-Hil972JuQOH/view?usp=drivesdk
+
 ## What is ApplyLog?
 
 ApplyLog is a small web app to keep track of job and internship applications.
@@ -384,6 +386,10 @@ I broke 2 things on purpose and fixed them (full steps in [troubleshooting/READM
 ---
 
 ## M10 - Live demo
+
+**Video (5 min):** https://drive.google.com/file/d/1wpf-J_jXGa5-PTOo9jHA-Hil972JuQOH/view?usp=drivesdk
+
+In the video I explain the whole project using my presentation slides.
 
 Demo plan: change the app, push, and watch it get deployed automatically.
 
